@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "build-watch": "tsc -w",
-    "pkg": "pkg -o chatone.exe -t node18-win index.js & pkg -o chatone -t node18-mac index.js",
+    "pkg": "pkg -o chatone.exe -t node18-win index.js & pkg -o chatone -t node18-mac index.js & pkg -o chatone-linux -t node18-linux index.js",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -17,8 +17,8 @@ async function main() {
         messages
     }
 
-    messages.push(await newQuestion('Hello, I am ChatONE, please ask me any question.\n(please end your question with "?" or press "enter" twice. You can enter "bye" to quit)'))
-    while(messages.slice(-1)[0].content !== 'bye\n') {
+    messages.push(await newQuestion('Hello, I am ChatONE, please ask me any question.\n(please enter "end" to send your question)'))
+    while(true) {
         const result = await openai.createChatCompletion(chatRequest)
         const message = result.data.choices[0]?.message
         if (!message) {
@@ -28,7 +28,6 @@ async function main() {
         messages.push(message)
         messages.push(await newQuestion(message.content))
     }
-    console.log("\x1b[36m", `\nGoodbye! Have a good day`)
 }
 
 async function newQuestion(question: string) {
@@ -43,10 +42,10 @@ async function newQuestion(question: string) {
 
 async function multilinesQuestion(message: string = ''): Promise<string> {
     const response = await rl.question('')
-    message += `${response}\n`
-    if ((response.length === 0 || response.endsWith('?') || response === 'bye') && message.length > 3) {
+    if (response === 'end') {
         return message
     }
+    message += `${response}\n`
     return multilinesQuestion(message)
 }
 
