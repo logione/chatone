@@ -6,5 +6,4 @@ import { AppComponent } from './app/app.component'
 
 bootstrapApplication(AppComponent, {
     providers: [importProvidersFrom(BrowserModule)]
-})
-  .catch(err => console.error(err));
+}).catch(err => console.error(err));
