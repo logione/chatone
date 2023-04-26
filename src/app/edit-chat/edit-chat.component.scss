@@ -1,0 +1,109 @@
+@import "../../../variables";
+
+.popup {
+    z-index: 2000;
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    height: 35rem;
+    width: 22rem;
+    background-color: white;
+    box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.75);
+
+    .header, .footer {
+        background-color: $light-color;
+        .d-flex {
+            padding: 0.75rem;
+            gap: 0.5rem;
+        }
+    }
+
+    .header {
+        border-bottom: 0.05rem solid rgb(222, 226, 230); 
+    }
+
+    .footer {
+        border-bottom: 0.05rem solid rgb(222, 226, 230);
+
+        textarea {
+            resize: none;
+            flex-grow: 1;
+            margin-bottom: 0;
+            &::-webkit-scrollbar{
+                display: none;
+            }
+        }
+
+        button {
+            height: 2.375rem;
+        }
+    }
+
+    .body {
+        overflow: auto;
+        flex-grow: 1;
+        .d-flex {
+            gap: 0.5rem;
+        }
+
+        &> div {
+            padding: 0.75rem;
+        }
+    }
+}
+
+.popup {
+    &.mobile {
+        width: 100vw;
+        height: 100svh; 
+        right: 0;
+        bottom: 0;
+    }
+
+    @media (max-width: 24rem) or (max-height: 37rem) {
+        width: calc(100vw - 1rem);
+        height: calc(100vh - 1rem);
+        right: 0.5rem;
+        bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 24rem) or (max-height: 37rem) {
+    .popup {
+        width: calc(100vw - 1rem);
+        height: calc(100vh - 1rem);
+        right: 0.5rem;
+        bottom: 0.5rem;
+    }
+}
+
+.card {
+    cursor: default;
+    display: block;
+    max-width: 90%;
+    
+    .card-body {
+        padding: 0.3rem;
+        white-space: pre-line;
+    }
+
+    &.from-user {
+        border-bottom-right-radius: 0%;
+        background-color: $primary-color;
+        margin-left: auto;
+        color: white;
+    }
+
+    &.from-support {
+        border-bottom-left-radius: 0%;
+        background-color: $info-color;
+        margin-right: auto;
+        color: white;
+    }
+
+    &.from-bot {
+        background-color: $light-color;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

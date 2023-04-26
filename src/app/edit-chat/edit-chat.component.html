@@ -1,0 +1,33 @@
+<div class="popup d-flex flex-column" [class.mobile]="device.isMobile" *ngIf="isOpen && item">
+    <div class="header">
+        <div class="d-flex justify-content-between">
+            <doc-btn-close (click)="close()"></doc-btn-close>
+            <h5>ChatONE</h5>
+            <div></div>
+        </div>
+    </div>
+    <div #body class="body">
+        <div class="d-flex flex-column">
+            <doc-alerts [alerts]="alerts"></doc-alerts>
+            <div class="card from-bot" *ngIf="displayWelcomeMessage">
+                <div class="card-body">Welcome, please ask any question.</div>
+            </div>
+            <div *ngFor="let message of item.messages" class="card"
+                [class.from-user]="!message.fromSupport"
+                [class.from-support]="message.fromSupport" >
+                <div class="card-body">
+                    {{ message.text }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="d-flex align-items-end">
+            <textarea docBlur #messageInput id="data" [placeholder]="Message" rows="1" class="form-control" [(ngModel)]="message"
+                (keyup)="autosizeMessageInput()" (keypress)="textareaKeypress($event)"></textarea>
+            <button class="btn btn-primary" [disabled]="message.trim().length === 0" (click)="sendMessage()" [title]="Send">
+                <doc-icon name="paper-plane"></doc-icon>
+            </button>
+        </div>
+    </div>
+</div>
