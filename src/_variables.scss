@@ -1,0 +1,92 @@
+$primary-color: hsl(210.5,78.7%,46.1%);
+$dark-color: #07223C;
+$secondary-color: #6F757C;
+$light-color: #f8f9fa;
+$table-color: #262626;
+$danger-color: hsl(10.1,78.7%,46.1%);
+$warning-color: hsl(49.9,78.7%,46.1%);
+$info-color: hsl(190, 62%, 46%);
+$logo-color: #007bff;
+$success-color: hsl(138, 62%, 46.1%);
+$adobe-color: #CC280C;
+$image-color: #7A403C;
+$over-color:#bee5eb;
+$note-color: #ff9900;
+$outlook-color: #106EBE;
+$outline-color: rgba(0,0,0,0.15);
+
+$theme-colors: (
+  "primary": $primary-color,
+  "dark": $dark-color,
+  "info": $info-color,
+  "danger": $danger-color,
+  "secondary": $secondary-color,
+  "success": $success-color,
+  "warning": $warning-color
+);
+
+$border-radius: 0.25rem;
+
+.adobe-color {
+  color: $adobe-color;
+}
+
+.image-color {
+  color: $image-color;
+}
+
+.outlook-color {
+  color: $outlook-color;
+}
+
+.note-color {
+  color: $note-color;
+  a.nav-link.active, a.nav-link {
+    color: $note-color;
+    &:hover {
+      color: $note-color;
+    }
+  }
+  a.nav-link.active {
+    border-color: $note-color;
+  }
+}
+
+.info-color {
+  color: $info-color;
+  a.nav-link.active, a.nav-link {
+    color: $info-color;
+    &:hover {
+      color: $info-color;
+    }
+  }
+  a.nav-link.active {
+    border-color: $info-color;
+  }
+}
+
+.danger-color {
+  color: $danger-color;
+  a.nav-link.active, a.nav-link {
+    color: $danger-color;
+    &:hover {
+      color: $danger-color;
+    }
+  }
+  a.nav-link.active {
+    border-color: $danger-color;
+  }
+}
+
+.warning-color {
+  color: $warning-color;
+  a.nav-link.active, a.nav-link {
+    color: $warning-color;
+    &:hover {
+      color: $warning-color;
+    }
+  }
+  a.nav-link.active {
+    border-color: $warning-color;
+  }
+}

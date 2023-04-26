@@ -1,12 +1,10 @@
-@import "../../../variables";
+@import "../../variables"; 
 
 .popup {
     z-index: 2000;
-    position: absolute;
-    right: 1rem;
-    bottom: 1rem;
-    height: 35rem;
-    width: 22rem;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    height: calc(100svh - 32px); 
     background-color: white;
     box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.75);
 
@@ -52,31 +50,6 @@
     }
 }
 
-.popup {
-    &.mobile {
-        width: 100vw;
-        height: 100svh; 
-        right: 0;
-        bottom: 0;
-    }
-
-    @media (max-width: 24rem) or (max-height: 37rem) {
-        width: calc(100vw - 1rem);
-        height: calc(100vh - 1rem);
-        right: 0.5rem;
-        bottom: 0.5rem;
-    }
-}
-
-@media (max-width: 24rem) or (max-height: 37rem) {
-    .popup {
-        width: calc(100vw - 1rem);
-        height: calc(100vh - 1rem);
-        right: 0.5rem;
-        bottom: 0.5rem;
-    }
-}
-
 .card {
     cursor: default;
     display: block;
@@ -96,9 +69,8 @@
 
     &.from-support {
         border-bottom-left-radius: 0%;
-        background-color: $info-color;
+        background-color: $light-color;
         margin-right: auto;
-        color: white;
     }
 
     &.from-bot {

@@ -1,1 +1,735 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import "variables";
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+
+a {
+    text-decoration: none;
+    color: $primary-color;
+}
+
+.icon {
+    font-family: "fontello";
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+.icon-lg {
+    font-size: 1.33333em;
+    line-height: 0.75em;
+    vertical-align: -.0667em;
+}
+
+.icon-fw {
+    text-align: center;
+    width: 1.25em;
+}
+
+img.icon-fw {
+    margin-top: -0.1875em;
+}
+
+.icon-stack {
+    display: inline-block;
+    height: 2em;
+    line-height: 2em;
+    position: relative;
+    vertical-align: middle;
+    width: 2.5em;
+}
+
+.icon-stack-1x,
+.icon-stack-2x {
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.icon-stack-1x {
+    line-height: inherit;
+}
+
+.icon-stack-2x {
+    left: -.0667em;
+    font-size: 2em;
+}
+
+.icon-inverse {
+    color: #fff;
+}
+
+.btn-outline-dark,
+.btn-outline-dark:disabled,
+.btn-outline-dark:focus {
+    border-color: $outline-color;
+}
+
+.btn:focus {
+
+    &.btn-primary,
+    &.btn-dark,
+    &.btn-danger,
+    &.btn-info,
+    &.btn-secondary,
+    &.btn-success,
+    &.btn-warning {
+        box-shadow: 0 0 0 0.1rem $outline-color;
+    }
+
+    &.btn-outline-primary,
+    &.btn-outline-dark,
+    &.btn-outline-secondary,
+    &.btn-outline-success,
+    &.btn-outline-danger,
+    &.btn-outline-warning,
+    &.btn-outline-info {
+        background-color: white;
+    }
+
+    &.btn-outline-primary {
+        box-shadow: 0 0 0 0.1rem $primary-color;
+        color: $primary-color;
+    }
+
+    &.btn-outline-secondary {
+        box-shadow: 0 0 0 0.1rem $secondary-color;
+        color: $secondary-color;
+    }
+
+    &.btn-outline-success {
+        box-shadow: 0 0 0 0.1rem $success-color;
+        color: $success-color;
+    }
+
+    &.btn-outline-dark {
+        box-shadow: 0 0 0 0.1rem $outline-color;
+        color: $dark-color;
+    }
+
+    &.btn-outline-danger {
+        box-shadow: 0 0 0 0.1rem $danger-color;
+        color: $danger-color;
+    }
+
+    &.btn-outline-warning {
+        box-shadow: 0 0 0 0.1rem $warning-color;
+        color: $warning-color;
+    }
+
+    &.btn-outline-info {
+        box-shadow: 0 0 0 0.1rem $info-color;
+        color: $info-color;
+    }
+}
+
+.align-right-2-last-childs li:nth-last-child(-2n+2) {
+    margin-left: auto;
+}
+
+.align-right-last-child li:last-child {
+    margin-left: auto;
+}
+
+.nav-pills {
+    z-index: 1;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: white;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: rgb(222, 226, 230);
+
+    .nav-link {
+        color: $dark-color;
+
+        &.active {
+            background-color: transparent !important;
+            color: $primary-color;
+        }
+    }
+
+    +.tab-content {
+        padding-bottom: 100px;
+    }
+}
+
+.nav-tabs .nav-link {
+    font-size: 100%;
+    color: $dark-color;
+    border-width: 0px;
+
+    &.active {
+        border-radius: 0rem;
+        color: $primary-color;
+        border-bottom: 3px solid;
+        border-color: $primary-color;
+    }
+
+    &:hover {
+        color: $primary-color;
+        outline-width: 0px;
+    }
+
+    &:focus {
+        outline-width: 0px;
+    }
+}
+
+.mobile {
+    .modal-dialog {
+        height: 100%;
+        max-width: 100% !important;
+        margin: 0px !important;
+    }
+
+    .modal-content {
+        min-height: 100%;
+        border-radius: 0px !important;
+        border: 0px !important;
+    }
+}
+
+.side {
+    position: initial;
+
+    .modal-dialog {
+        z-index: 1050;
+        position: fixed;
+        top: 3.125rem;
+        height: 100%;
+        right: 0;
+        left: auto;
+        margin-top: 0px;
+        margin-bottom: 0px;
+
+        @media (min-width: 992px) {
+            width: 46rem;
+        }
+
+        @media (max-width: 991.8px) {
+            max-width: 39.625rem;
+        }
+
+        @media (min-width: 637px) {
+            min-width: 39.625rem;
+        }
+
+        .modal-content {
+            overflow: auto;
+            position: relative;
+            height: 100%;
+            padding-bottom: 3rem;
+            align-content: start;
+
+            .tab-content {
+                height: calc(100% - 5.5rem);
+
+                .tab-pane {
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
+
+.modal-content {
+    border: 0px;
+    border-radius: 0rem;
+    box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.modal-header {
+    background-color: $light-color;
+
+    .d-flex.flex-row {
+        margin-top: 0.25rem;
+        margin-right: 0.5rem;
+        width: 100%;
+
+        doc-document-icon,
+        doc-icon {
+            font-size: 1.25rem;
+            margin-right: 0.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+            width: 100%;
+
+            input {
+                background-color: transparent;
+                font-weight: 500;
+                border-bottom-width: 0rem;
+                padding-bottom: 0rem;
+                width: 100%;
+
+                &:focus,
+                &:hover {
+                    background-color: white;
+                }
+
+                &:focus,
+                &:hover,
+                &.ng-invalid {
+                    border-bottom-width: 1px;
+                    padding-top: 1px;
+                }
+
+                &::placeholder {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+.modal-footer {
+    background-color: $light-color;
+}
+
+.mt-5 {
+    margin-top: 2.5rem !important;
+}
+
+.mb-5 {
+    margin-bottom: 2.5rem !important;
+}
+
+.me-5 {
+    margin-right: 2.5rem !important;
+}
+
+.ms-5 {
+    margin-left: 2.5rem !important;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 2.5rem;
+
+    &:focus-within label {
+        color: $primary-color;
+    }
+
+    label {
+        transition: all 0.2s;
+        color: $secondary-color;
+        font-size: 80%;
+        position: absolute;
+        top: -1.2rem;
+        pointer-events: none;
+
+        @supports (-ms-ime-align:auto) {
+            &:not(.placeholder) {
+                font-size: 80% !important;
+                top: -1.2rem !important;
+            }
+        }
+
+        &.placeholder {
+            font-size: 100%;
+            top: 0rem;
+            opacity: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            width: calc(100% - 1.5rem);
+        }
+    }
+
+    .invalid-feedback {
+        position: absolute;
+        top: 1.5rem;
+        display: block;
+    }
+
+    .form-control {
+        color: black;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-left: 0px;
+        border-left-width: 0px;
+        border-right-width: 0px;
+        border-top-width: 0px;
+        border-radius: 0rem;
+        border-color: $secondary-color;
+        height: 1.8em;
+
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus {
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        &[readonly],
+        &:disabled {
+            border-style: dashed;
+            color: $secondary-color;
+            background-color: white;
+        }
+
+        &::placeholder {
+            opacity: 0;
+            transition: all 0.2s;
+        }
+
+        &:focus,
+        &:hover {
+
+            &::placeholder,
+            &+label+label.placeholder {
+                opacity: 1;
+            }
+        }
+
+        &:not(:focus):not(:hover),
+        &:disabled,
+        &[readonly] {
+            &:placeholder-shown {
+                +label {
+                    font-size: 100%;
+                    top: 0rem;
+                    cursor: text;
+                }
+            }
+
+            +label.select-no-value {
+                font-size: 100%;
+                top: 0rem;
+            }
+        }
+
+        &:focus:not([readonly]) {
+            border-color: $primary-color;
+            box-shadow: none;
+            z-index: 0;
+
+            +label+.input-group-append button {
+                border-color: $primary-color;
+            }
+        }
+
+        &:required {
+            box-shadow: none !important;
+        }
+
+        &.ng-invalid.ng-touched:not(form),
+        .ng-invalid.ng-dirty:not(form) {
+            border-color: $danger-color;
+
+            +label {
+                color: $danger-color;
+
+                +.input-group-append button {
+                    border-color: $danger-color;
+                }
+            }
+
+            &:placeholder-shown:not(:focus)+label {
+                color: $secondary-color;
+            }
+        }
+    }
+
+    .input-group-append {
+        button.btn-outline-dark {
+            border-left-width: 0px;
+            border-right-width: 0px;
+            border-top-width: 0px;
+            border-radius: 0rem;
+            border-color: $secondary-color;
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            padding-right: 6px;
+            z-index: 0;
+            background-color: white;
+
+            &:focus,
+            &:active {
+                background-color: white;
+                color: $dark-color;
+                box-shadow: none !important;
+            }
+        }
+    }
+
+    .input-group-prepend {
+        .input-group-text {
+            border-left-width: 0px;
+            border-right-width: 0px;
+            border-top-width: 0px;
+            border-radius: 0rem;
+            border-color: $secondary-color;
+            background-color: white;
+            padding-bottom: 0px;
+            padding-top: 0px;
+            padding-left: 0px;
+            padding-right: 0.5rem;
+            z-index: 0;
+            color: rgb(7, 34, 60);
+
+            div {
+                margin-bottom: 0.1875rem;
+                margin-top: -0.1875rem;
+            }
+        }
+    }
+
+    select.form-control {
+        appearance: none;
+    }
+
+    &.select,
+    .select {
+        position: relative;
+        display: flex;
+
+        &::after {
+            font-family: "fontello";
+            content: "\f0dd";
+            color: $secondary-color;
+            position: absolute;
+            right: 0.75rem;
+            top: 0;
+        }
+    }
+
+    button:not(.dropdown-item) {
+        &:hover {
+            background-color: $light-color;
+            color: $dark-color;
+        }
+    }
+}
+
+input[type=number] {
+    appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        appearance: none;
+        margin: 0;
+    }
+}
+
+.list-group-item {
+
+    a:not([href]),
+    a:not([href]):hover {
+        color: black;
+        text-decoration: none;
+    }
+}
+
+.tooltip-inner {
+    background-color: $info-color;
+}
+
+.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: $info-color;
+}
+
+.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: $info-color;
+}
+
+.bs-tooltip-end .tooltip-arrow::before {
+    border-right-color: $info-color;
+}
+
+.bs-tooltip-start .tooltip-arrow::before {
+    border-left-color: $info-color;
+}
+
+.loading {
+    position: fixed;
+    margin-top: 6px;
+    margin-left: 6px;
+}
+
+table.table {
+    .btn-link {
+        text-decoration: none;
+
+        &.danger-color {
+            color: $danger-color;
+        }
+
+        &.warning-color {
+            color: $warning-color;
+        }
+
+        &.info-color {
+            color: $info-color;
+        }
+
+        color: $table-color;
+
+        &:hover {
+            color: $table-color;
+            text-decoration: underline;
+        }
+
+        &:disabled,
+        &.disabled {
+            color: $table-color;
+            pointer-events: none;
+            cursor: default;
+        }
+    }
+
+    tr {
+        &:hover td .hover-buttons button {
+            visibility: visible;
+        }
+
+        td {
+            vertical-align: middle;
+
+            .hover-buttons {
+                margin-left: 0.1em;
+                height: 1.4875em;
+
+                &.tablet button {
+                    visibility: visible;
+                }
+
+                button {
+                    height: 3.05em;
+                    visibility: hidden;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                    margin-top: -0.75em;
+                    padding-left: 0.4em;
+                    padding-right: 0.4em;
+                    border: none;
+                    border-radius: 0px;
+                    box-shadow: none !important;
+                    outline: 0;
+                }
+            }
+        }
+    }
+
+    &.table-sm tr td .hover-buttons button.btn {
+        height: 2.2em;
+        margin-top: -0.35em;
+        padding-left: 0.3em;
+        padding-right: 0.3em;
+    }
+}
+
+.tab-content>.tab-pane {
+    display: block; // override default to resolve issue with new tab in ng-bootstrap 8.0
+}
+
+.z1 {
+    z-index: 1;
+}
+
+ngb-pagination li {
+    &.disabled a.page-link {
+        color: $secondary-color;
+    }
+
+    &.active a.page-link {
+        color: $dark-color;
+        background-color: rgb(0, 0, 0, 0.1);
+        border-color: $outline-color;
+    }
+
+    &:first-child a.page-link,
+    &:last-child a.page-link {
+        padding-left: 0.33203125rem;
+        padding-right: 0.33203125rem;
+    }
+
+    a.page-link {
+        border-color: $outline-color;
+        color: $dark-color;
+
+        &:focus,
+        &:active,
+        &:hover {
+            border-color: $outline-color;
+            color: $dark-color;
+            box-shadow: none;
+        }
+    }
+}
+
+.alert-dismissible {
+    .btn-close::before {
+        content: '\f00d';
+        font-family: "fontello";
+    }
+
+    .btn-close {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-top: 1rem;
+        padding-bottom: 1.5rem;
+        background: none;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}
+
+.bottom-fixed.alert-dismissible {
+    .btn-close {
+        padding-top: 0.889rem;
+    }
+}
+
+.fullwidth-typeahead,
+.fullwidth-mobile-typeahead {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 0;
+
+    .dropdown-item {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &.active,
+        &:active {
+            color: inherit;
+            background-color: #e9ecef;
+        }
+    }
+}
+
+.fullwidth-typeahead {
+    width: 100%;
+    transform: translate3d(0px, 38px, 0px) !important;
+
+    .dropdown-item {
+        padding-top: 0.375rem;
+        padding-bottom: 0.375rem;
+    }
+}
+
+.fullwidth-mobile-typeahead {
+    width: calc(100% - 4.75rem);
+    transform: translate3d(10px, 43px, 0px) !important;
+    border-color: rgb(206, 212, 218);
+
+    .dropdown-item {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+}
