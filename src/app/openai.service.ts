@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core'
 import { ChatCompletionRequestMessage, Configuration, CreateChatCompletionRequest, OpenAIApi } from 'openai'
 import { BehaviorSubject } from 'rxjs'
 
+class CustomFormData extends FormData { // fixes issue with openai transcription
+    getHeaders() {
+        return {}
+    }
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -24,13 +30,20 @@ export class OpenAIService {
     }
 
     setAPIKey(apiKey: string): void {
-        const configuration = new Configuration({ apiKey })
+        const configuration = new Configuration({ apiKey, formDataCtor: CustomFormData  })
         this.openai = new OpenAIApi(configuration)
         this.chatRequest = {
             model: 'gpt-3.5-turbo',
             messages: this.messages
         }
         localStorage.setItem('api-key', apiKey)
+    }
+
+    async transcribe(file: File): Promise<void> {
+        if (this.openai) {
+            const result = await this.openai.createTranscription(file, 'whisper-1')
+            this.pushMessage({ content: result.data.text, role: 'assistant'})
+        }
     }
 
     async newQuestion(question: string): Promise<void> {

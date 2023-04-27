@@ -1,10 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { NgIf, NgFor, AsyncPipe } from '@angular/common'
+import { SubscriptionLike } from 'rxjs'
 
 import { IconComponent } from '../icon/icon.component'
 import { BlurDirective } from '../blur.directive'
 import { OpenAIService } from '../openai.service'
+import { AudioRecorderService } from '../audio-recorde.service'
 
 @Component({
     selector: 'doc-edit-chat',
@@ -14,13 +16,14 @@ import { OpenAIService } from '../openai.service'
     standalone: true,
     imports: [NgIf, NgFor, FormsModule, BlurDirective, IconComponent, AsyncPipe]
 })
-export class EditChatComponent {
+export class EditChatComponent implements OnInit, OnDestroy {
   @ViewChild('messageInput') messageInputRef!: ElementRef
   @ViewChild('body') bodyRef!: ElementRef
 
   protected message = ''
   protected accessToken?: string
   protected waiting = false
+  protected isRecording = false
   
   protected get messages$() {
     return this.openAIService.messages$
@@ -49,9 +52,25 @@ export class EditChatComponent {
     return this.bodyRef.nativeElement
   }
 
+  private subscription: SubscriptionLike | undefined
+
   constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly openAIService: OpenAIService) {}
+    private readonly openAIService: OpenAIService,
+    private readonly audioRecorder: AudioRecorderService) {
+      
+  }
+
+  ngOnInit() {
+    this.subscription = this.audioRecorder.file$.subscribe((f) => this.openAIService.transcribe(f))
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+      this.subscription = undefined
+    }
+  }
 
   protected autosizeMessageInput(): void {
     this.messageInput.style.height = '0px'
@@ -87,6 +106,15 @@ export class EditChatComponent {
       this.autosizeMessageInput()
     }
     setTimeout(() => this.messageInput.focus(), 0)
+  }
+
+  protected switchRecording() {
+    if (this.isRecording) {
+      this.audioRecorder.stop()
+    } else {
+      this.audioRecorder.start()
+    }
+    this.isRecording = !this.isRecording
   }
   
   private scrollDown() {

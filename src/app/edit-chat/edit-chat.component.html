@@ -30,6 +30,13 @@
             <button class="btn btn-primary" [disabled]="message.trim().length === 0" (click)="sendMessage()" title="Send">
                 <doc-icon name="paper-plane"></doc-icon>
             </button>
+            <button
+                class="btn btn-secondary"
+                [disabled]="message.trim().length > 0 || waiting"
+                (click)="switchRecording()"
+                title="Transcribe">
+                <doc-icon name=""></doc-icon>
+            </button>
         </div>
     </div>
 </div>
