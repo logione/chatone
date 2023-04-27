@@ -14,9 +14,8 @@
             <div class="card from-support" *ngIf="hasKey">
                 <div class="card-body">Hello, I am ChatONE, please ask me any question.</div>
             </div>
-            <div *ngFor="let message of messages$ | async" class="card"
-                [class.from-user]="message.role === 'user'"
-                [class.from-support]="message.role !== 'user'" >
+            <div *ngFor="let message of messages$ | async" class="card" [class.from-user]="message.role === 'user'"
+                [class.from-support]="message.role !== 'user'">
                 <div class="card-body">
                     {{ message.content }}
                 </div>
@@ -25,17 +24,16 @@
     </div>
     <div class="footer">
         <div class="d-flex align-items-end">
-            <textarea docBlur #messageInput id="data" [placeholder]="placeholder" rows="1" class="form-control" [disabled]="waiting" [(ngModel)]="message"
-                (keyup)="autosizeMessageInput()" (keypress)="textareaKeypress($event)"></textarea>
-            <button class="btn btn-primary" [disabled]="message.trim().length === 0" (click)="sendMessage()" title="Send">
-                <doc-icon name="paper-plane"></doc-icon>
+            <button class="btn btn-primary" [disabled]="!hasKey || message.trim().length > 0 || waiting"
+                (click)="switchRecording()" title="Transcribe">
+                <doc-icon [name]="isRecording ? 'stop' : 'microphone'"></doc-icon>
             </button>
-            <button
-                class="btn btn-secondary"
-                [disabled]="message.trim().length > 0 || waiting"
-                (click)="switchRecording()"
-                title="Transcribe">
-                <doc-icon name=""></doc-icon>
+            <textarea docBlur #messageInput id="data" [placeholder]="placeholder" rows="1" class="form-control"
+                [disabled]="waiting" [(ngModel)]="message" (keyup)="autosizeMessageInput()"
+                (keypress)="textareaKeypress($event)"></textarea>
+            <button class="btn btn-primary" [disabled]="message.trim().length === 0" (click)="sendMessage()"
+                title="Send">
+                <doc-icon name="paper-plane"></doc-icon>
             </button>
         </div>
     </div>
