@@ -1,4 +1,5 @@
 
+.icon-file-audio:before { content: '\e80c'; } /* '' */
 .icon-stop:before { content: '\f04d'; } /* '' */
 .icon-microphone:before { content: '\f130'; } /* '' */
 .icon-paper-plane:before { content: '\f1d8'; } /* '' */
