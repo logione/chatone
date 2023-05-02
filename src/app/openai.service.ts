@@ -41,8 +41,12 @@ export class OpenAIService {
 
     async transcribe(file: File): Promise<void> {
         if (this.openai) {
-            const result = await this.openai.createTranscription(file, 'whisper-1')
-            this.pushMessage({ content: result.data.text, role: 'assistant'})
+            try {
+                const result = await this.openai.createTranscription(file, 'whisper-1')
+                this.pushMessage({ content: result.data.text, role: 'assistant'})
+            } catch (err: any) {
+                this.handleError(err)
+            }
         }
     }
 
@@ -62,12 +66,8 @@ export class OpenAIService {
                     throw new Error()
                 }
                 this.pushMessage(message)
-            } catch (err) {
-                console.error(err)
-                this.openai = undefined
-                this.chatRequest = undefined
-                this.messages.length = 0
-                localStorage.removeItem('api-key')
+            } catch (err: any) {
+                this.handleError(err)
             }
         }
     }
@@ -75,5 +75,18 @@ export class OpenAIService {
     private pushMessage(message: ChatCompletionRequestMessage) {
         this.messages.push(message)
         this.messages$.next(this.messages)
+    }
+
+    private handleError(err: Error) {
+        const err2 = JSON.parse(JSON.stringify(err)) //otherwise status is undefined, don't know why...
+        console.error(err2)
+        if (err2?.status && err2.status === 401) {
+            this.openai = undefined
+            this.chatRequest = undefined
+            this.messages.length = 0
+            localStorage.removeItem('api-key')
+        } else {
+            this.pushMessage({ content: `Error: ${err?.message}`, role: 'assistant' })
+        }
     }
 }
