@@ -116,6 +116,15 @@ export class EditChatComponent implements OnInit, OnDestroy {
     }
     this.isRecording = !this.isRecording
   }
+
+  protected async onAudioFileSelected(event: Event) {
+    const file: File | undefined = (event.target as any)?.files[0]
+    if (file) {
+      this.waiting = true
+      await this.openAIService.transcribe(file)
+      this.waiting = false
+    }
+  }
   
   private scrollDown() {
     this.changeDetectorRef.markForCheck()

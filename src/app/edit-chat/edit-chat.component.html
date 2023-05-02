@@ -1,3 +1,4 @@
+<input #fileInput type="file" class="file-input" accept="audio/*" (change)="onAudioFileSelected($event)">
 <div class="popup d-flex flex-column">
     <div class="header">
         <div class="d-flex justify-content-between">
@@ -24,6 +25,10 @@
     </div>
     <div class="footer">
         <div class="d-flex align-items-end">
+            <button class="btn btn-primary" [disabled]="!hasKey || message.trim().length > 0 || waiting"
+                (click)="fileInput.click()">
+                <doc-icon name="file-audio"></doc-icon>
+            </button>
             <button class="btn btn-primary" [disabled]="!hasKey || message.trim().length > 0 || waiting"
                 (click)="switchRecording()" title="Transcribe">
                 <doc-icon [name]="isRecording ? 'stop' : 'microphone'"></doc-icon>
