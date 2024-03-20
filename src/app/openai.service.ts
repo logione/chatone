@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { ChatCompletionRequestMessage, Configuration, CreateChatCompletionRequest, OpenAIApi } from 'openai'
+import OpenAI from 'openai'
 import { BehaviorSubject } from 'rxjs'
 
 class CustomFormData extends FormData { // fixes issue with openai transcription
@@ -12,11 +12,11 @@ class CustomFormData extends FormData { // fixes issue with openai transcription
     providedIn: 'root'
 })
 export class OpenAIService {
-    private openai?: OpenAIApi
-    private chatRequest?: CreateChatCompletionRequest
-    private readonly messages: ChatCompletionRequestMessage[] = []
+    private openai?: OpenAI
+    private chatRequest?: OpenAI.Chat.ChatCompletionCreateParamsNonStreaming
+    private readonly messages: OpenAI.Chat.ChatCompletionMessageParam[] = []
     
-    readonly messages$ = new BehaviorSubject<ChatCompletionRequestMessage[]>([])
+    readonly messages$ = new BehaviorSubject<OpenAI.Chat.ChatCompletionMessageParam[]>([])
 
     get hasAPIKey() {
         return Boolean(this.openai)
@@ -30,11 +30,7 @@ export class OpenAIService {
     }
 
     setAPIKey(apiKey: string): void {
-        const configuration = new Configuration({ formDataCtor: CustomFormData  })
-        configuration.baseOptions.headers = {
-            Authorization: `Bearer ${apiKey}`
-        }
-        this.openai = new OpenAIApi(configuration)
+        this.openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true   })
         this.chatRequest = {
             model: 'gpt-3.5-turbo',
             messages: this.messages
@@ -45,8 +41,8 @@ export class OpenAIService {
     async transcribe(file: File): Promise<void> {
         if (this.openai) {
             try {
-                const result = await this.openai.createTranscription(file, 'whisper-1')
-                this.pushMessage({ content: result.data.text, role: 'assistant'})
+                const result = await this.openai.audio.transcriptions.create({ file, model: 'whisper-1' })
+                this.pushMessage({ content: result.text, role: 'assistant'})
             } catch (err: any) {
                 this.handleError(err)
             }
@@ -56,14 +52,14 @@ export class OpenAIService {
     async newQuestion(question: string): Promise<void> {
         this.pushMessage({
             content: question,
-            role: 'user'
+            role: 'user' as any
         })
 
         if (this.openai && this.chatRequest) {
             this.chatRequest.messages = this.messages
             try {
-                const result = await this.openai.createChatCompletion(this.chatRequest)
-                const message = result.data.choices[0]?.message
+                const result = await this.openai.chat.completions.create(this.chatRequest)
+                const message = result.choices[0]?.message
                 if (!message) {
                     console.error('Error, no answer recieved from ChatGPT')
                     throw new Error()
@@ -75,7 +71,7 @@ export class OpenAIService {
         }
     }
 
-    private pushMessage(message: ChatCompletionRequestMessage) {
+    private pushMessage(message: OpenAI.Chat.ChatCompletionMessageParam) {
         this.messages.push(message)
         this.messages$.next(this.messages)
     }
