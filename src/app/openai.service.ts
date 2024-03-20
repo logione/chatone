@@ -30,7 +30,10 @@ export class OpenAIService {
     }
 
     setAPIKey(apiKey: string): void {
-        const configuration = new Configuration({ apiKey, formDataCtor: CustomFormData  })
+        const configuration = new Configuration({ formDataCtor: CustomFormData  })
+        configuration.baseOptions.headers = {
+            Authorization: `Bearer ${apiKey}`
+        }
         this.openai = new OpenAIApi(configuration)
         this.chatRequest = {
             model: 'gpt-3.5-turbo',
